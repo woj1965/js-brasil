@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.jsbrasil = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.jsbrasilwoj = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("./src/utils");
@@ -16,6 +16,7 @@ exports.validateBr = {
     rg: validate_1.validate_rg,
     placa: validate_1.validate_placa,
     telefone: validate_1.validate_telefone,
+    celular: validate_1.validate_celular,
     time: validate_1.validate_time,
     titulo: validate_1.validate_titulo
 };
@@ -817,6 +818,7 @@ exports.maskBr = {
     cnpj: makeGeneric('cnpj'),
     rg: makeGeneric('rg'),
     telefone: makeGeneric('telefone'),
+    celular: makeGeneric('celular'),
     inscricaoestadual: function (inscricaoestadualValue, estado) {
         if (!inscricaoestadualValue || !estado || !utils_1.MASKS.inscricaoestadual[estado] ||
             !utils_1.MASKS.inscricaoestadual[estado].textMask) {
@@ -1366,7 +1368,7 @@ exports.cep_ranges = cep_ranges;
 function validate_telefone(tel) {
     var telClean = tel.replace(/[^\d]+/g, '');
     tel = tel.replace(/_/g, '');
-    if (!(telClean.length === 10 || telClean.length === 11)) {
+    if (!(telClean.length === 10)) {
         return false;
     }
     if (telClean[0] == 0 || telClean[2] == 0) {
@@ -1379,7 +1381,24 @@ function validate_telefone(tel) {
     // }
     return true;
 }
-exports.validate_telefone = validate_telefone;
+exports.validate_celular = validate_telefone;
+function validate_celular(cel) {
+    var celClean = cel.replace(/[^\d]+/g, '');
+    cel = cel.replace(/_/g, '');
+    if (!(celClean.length === 11)) {
+        return false;
+    }
+    if (celClean[0] == 0 || celClean[2] == 0) {
+        return false;
+    }
+    // const exp = /\(\d{2}\)\ \d{4}\-\d{4}/;
+    // const exp5 = /\(\d{2}\)\ \d{5}\-\d{4}/;
+    // if (!exp.test(tel) && !exp5.test(tel)) {
+    //   return false;
+    // }
+    return true;
+}
+exports.validate_celular = validate_celular;
 function validate_rg(rg) {
     var rgClean = rg.replace(/\./g, '');
     rgClean = rgClean.replace(/-/g, '');
