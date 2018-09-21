@@ -2,7 +2,7 @@ import {
   isPresent, MASKS
 } from './src/utils';
 import {
-  valida_cep, validate_cnpj, validate_cpf, validate_telefone,
+  valida_cep, validate_cnpj, validate_cpf, validate_telefone, validate_celular,
   validate_placa, validate_currency, validate_percentage, validate_rg, validate_time, validate_titulo
 } from './src/validate';
 import { validar } from './src/inscricaoestadual';
@@ -19,6 +19,7 @@ export const validateBr = {
   rg: validate_rg,
   placa: validate_placa,
   telefone: validate_telefone,
+  celular: validate_celular,
   time: validate_time,
   titulo: validate_titulo
 };
