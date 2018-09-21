@@ -1,6 +1,6 @@
 {
-  "name": "js-brasil",
-  "version": "1.0.9",
+  "name": "js-brasil-woj",
+  "version": "1.0.0",
   "description": "Javascript Utils para Brasil (cpf, cnpj...)",
   "main": "dist/index.js",
   "scripts": {
@@ -8,20 +8,20 @@
     "watch": "onchange 'src/**/*.ts' '*.ts' -- npm run build",
     "watch:test": "onchange 'src/**/*.ts' '*.ts' -- npm run test",
     "test": "mocha -r ts-node/register test/**.ts",
-    "browserify": "browserify dist/index.js --standalone jsbrasil -o js-brasil.js",
+    "browserify": "browserify dist/index.js --standalone jsbrasilwoj -o js-brasil-woj.js",
     "dist": "npm run build && npm run browserify",
     "publish-npm": "npm run dist && npm publish"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mariohmol/js-brasil.git"
+    "url": "git+https://github.com/woj1965/js-brasil-woj.git"
   },
-  "author": "Mario Mol <mariohmol@gmail.com> (http://rama.net.br)",
+  "author": "Wilson de Oliveira Junior <woj1965@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mariohmol/js-brasil/issues"
+    "url": "https://github.com/woj1965/js-brasil-woj/issues"
   },
-  "homepage": "https://github.com/mariohmol/js-brasil#readme",
+  "homepage": "https://github.com/woj1965/js-brasil-woj#readme",
   "dependencies": {
     "randexp": "^0.5.3",
     "text-mask-addons": "^3.8.0"
