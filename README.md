@@ -1,6 +1,7 @@
-# js-brasil
+# js-brasil-woj
 
 Javascript Utils para Brasil (cpf, cnpj...)
+Forked from Mario Mol https://github.com/mariohmol
 
 
 [![Build Status](https://travis-ci.org/mariohmol/js-brasil.svg?branch=master)](https://travis-ci.org/mariohmol/js-brasil)
@@ -102,6 +103,7 @@ var cep = jsbrasil.fakerBr.cep();
 * rg
 * placa
 * telefone
+* celular
 * time
 * titulo
 
