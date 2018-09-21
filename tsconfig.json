@@ -17,7 +17,7 @@
       "dom"
     ],
     "paths": {
-      "js-brasil": [ "dist/js-brasil" ]
+      "js-brasil-woj": [ "dist/js-brasil-woj" ]
     }
   },
   "exclude": [
