@@ -108,7 +108,3 @@ var cep = jsbrasilwoj.fakerBr.cep();
 * titulo
 
 
-Utilizado pelo projeto
-
-* ng-brazil - angular support for brazil apps -  https://github.com/mariohmol/ng-brazil
-
