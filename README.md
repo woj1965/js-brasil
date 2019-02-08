@@ -1,7 +1,7 @@
-# js-brasil-woj
+# js-brasil-woj 1.1.7
 
 Javascript Utils para Brasil (cpf, cnpj...)
-Forked from Mario Mol https://github.com/mariohmol <--
+Forked from Mario Mol https://github.com/mariohmol
 
 
 [![Build Status](https://travis-ci.org/mariohmol/js-brasil.svg?branch=master)](https://travis-ci.org/mariohmol/js-brasil)
