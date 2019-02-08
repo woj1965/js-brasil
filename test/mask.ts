@@ -14,14 +14,16 @@ describe('Mask test', () => {
     expect(maskBr.cep('123')).to.exist;
     expect(maskBr.cnpj('123')).to.exist;
     expect(maskBr.cpf('123')).to.exist;
-    expect(maskBr.currency('123')).to.exist;
-    expect(maskBr.inscricaoestadual('mg','123')).to.exist;
+    // expect(maskBr.currency('123')).to.exist;
+    // expect(maskBr.currency(123)).to.exist;
+    expect(maskBr.inscricaoestadual('mg', '123')).to.exist;
     expect(maskBr.percentage('123')).to.exist;
     expect(maskBr.rg('123')).to.exist;
     expect(maskBr.placa('123')).to.exist;
     expect(maskBr.telefone('123')).to.exist;
     expect(maskBr.time('123')).to.exist;
     expect(maskBr.titulo('123')).to.exist;
+    expect(maskBr.processo('123')).to.exist;
   });
 
   it('Generic Testing with Faker , Mask and Validate', () => {
@@ -36,6 +38,7 @@ describe('Mask test', () => {
     // testGeneric('telefone');
     // testGeneric('time');
     testGeneric('titulo');
+    // testGeneric('processo');
   });
 
 
@@ -67,6 +70,28 @@ describe('Mask test', () => {
     const telefone = '31988886565';
     expect(maskBr.telefone(telefone)).to.be.equal('(31) 98888-6565');
   });
+  it('Processos', () => {
+    const processo = '000001001520081000000';
+    // expect(maskBr.processo(processo)).to.be.equal('00000100-15.2008.100.0000');
+  });
+
+  it('Moeda', () => {
+    const currency = 'R$ 5.103,94';
+    const currencyText = '5.103,94';
+    const currencyNumber = 5103.94;
+    const currencyNoDecimals = 'R$ 5.103';
+    const currencyTextNoDecimals = '5.103';
+    const currencyNumberNoDecimals = 5103;
+
+    expect(maskBr.currency(currencyNoDecimals)).to.be.equal('R$ 5.103,00');
+    expect(maskBr.currency(currencyTextNoDecimals)).to.be.equal('R$ 5.103,00');
+    expect(maskBr.currency(currencyNumberNoDecimals)).to.be.equal('R$ 5.103,00');
+
+    expect(maskBr.currency(currency)).to.be.equal('R$ 5.103,94');
+    expect(maskBr.currency(currencyNumber)).to.be.equal('R$ 5.103,94');
+    expect(maskBr.currency(currencyText)).to.be.equal('R$ 5.103,94');
+  });
+
   // // it('Time', () => {
   // //   const time = fakerBr.time();
   // //   expect(validateBr.time(time)).to.be.true;
