@@ -821,4 +821,3 @@ function lookup(ie) {
     return resultado;
   }
 }
-
