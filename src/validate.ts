@@ -1,3 +1,4 @@
+import { modulo11 } from "./utils";
 
 // http://www.geradorcnpj.com/javascript-validar-cnpj.htm
 /*
@@ -89,37 +90,15 @@ export function validate_cpf(strCPF) {
 
 export function create_cpf(strCPF) {
   strCPF = strCPF.replace(/[^\d]+/g, '');
-  let soma;
-  let resto;
-  soma = 0;
   if (strCPF === '00000000000') {
     return false;
   }
 
-  for (let i = 1; i <= 9; i++) {
-    // tslint:disable-next-line:radix
-    soma = soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
-  }
-  resto = (soma * 10) % 11;
+  const restos = [
+    modulo11(strCPF, 9, 11),
+    modulo11(strCPF, 10, 12)
+  ];
 
-  if ((resto === 10) || (resto === 11)) {
-    resto = 0;
-  }
-
-  const restos = [];
-  restos.push(resto);
-
-  soma = 0;
-  for (let i = 1; i <= 10; i++) {
-    soma = soma + parseInt(strCPF.substring(i - 1, i), 10) * (12 - i);
-  }
-  resto = (soma * 10) % 11;
-
-  if ((resto === 10) || (resto === 11)) {
-    resto = 0;
-  }
-
-  restos.push(resto);
   return restos;
 }
 
@@ -183,38 +162,27 @@ export function cep_ranges(cep) {
 export function validate_telefone(tel) {
   const telClean = tel.replace(/[^\d]+/g, '');
   tel = tel.replace(/_/g, '');
-  if(!(telClean.length === 10)){
+  if (!(telClean.length === 10 || telClean.length === 11)) {
     return false;
   }
-  if(telClean[0]==0 || telClean[2]==0){
+  if (telClean[0] == 0 || telClean[2] == 0) {
     return false;
   }
-  // const exp = /\(\d{2}\)\ \d{4}\-\d{4}/;
-  // const exp5 = /\(\d{2}\)\ \d{5}\-\d{4}/;
-  // if (!exp.test(tel) && !exp5.test(tel)) {
-  //   return false;
-  // }
   return true;
 }
 
 
 export function validate_celular(cel) {
-  const celClean = cel.replace(/[^\d]+/g, '');
-  cel = cel.replace(/_/g, '');
-  if(!(celClean.length === 11)){
+  let celClean = cel.replace(/[^\d]+/g, '');
+  celClean = celClean.replace(/_/g, '');
+  if (celClean.length !== 11) {
     return false;
   }
-  if(celClean[0]==0 || celClean[2]==0){
+  if (celClean[0] == 0 || celClean[2] < 5) {
     return false;
   }
-  // const exp = /\(\d{2}\)\ \d{4}\-\d{4}/;
-  // const exp5 = /\(\d{2}\)\ \d{5}\-\d{4}/;
-  // if (!exp.test(tel) && !exp5.test(tel)) {
-  //   return false;
-  // }
   return true;
 }
-
 
 export function validate_rg(rg) {
   let rgClean = rg.replace(/\./g, '');
@@ -244,17 +212,6 @@ export function validate_percentage(percentage) {
   return regex.test(percentage);
 }
 
-export function validate_placa(placa) {
-  const placaClean = placa.replace(/-/g, '');
-  const exp = /[A-Za-z]{3}\-\d{4}/;
-  const expClean = /[A-Za-z]{3}\d{4}/;
-  // const letters = placa.substr(0, 3).toUpperCase();
-
-  if (!exp.test(placa) && !expClean.test(placaClean)) {
-    return false;
-  }
-  return true;
-}
 
 export function validate_titulo(titulo) {
   const tituloClean = titulo.replace(/\./g, '');
@@ -267,7 +224,7 @@ export function validate_titulo(titulo) {
 }
 
 function validaTituloVerificador(titulo) {
-  const {dig1, dig2} =create_titulo(titulo);
+  const { dig1, dig2 } = create_titulo(titulo);
   const tam = titulo.length;
   const digitos = titulo.substr(tam - 2, 2);
   if ((digitos.charCodeAt(0) - 48 === dig1) && (digitos.charCodeAt(1) - 48 === dig2)) {
@@ -319,5 +276,48 @@ export function create_titulo(titulo) {
       dig2 = 11 - resto;
     }
   }
-  return {dig1, dig2};
+  return { dig1, dig2 };
+}
+
+export function validate_processo(processo) {
+  let processoClean = processo.replace(/\./g, '');
+  processoClean = processoClean.replace(/\-/g, '');
+  const exp = /\d{7}\-\d{2}\.\d{4}\.\d{3}\.\d{4}/;
+  const expClean = /\d{7}\d{4}\d{4}/;
+  if (!exp.test(processoClean) && !expClean.test(processoClean)) {
+    return false;
+  }
+  return true;
+}
+
+
+export function validate_renavam(renavam) {
+  let renavamClean = renavam.replace(/\./g, '');
+  renavamClean = renavamClean.replace(/\-/g, '');
+  const dv = create_renavam(renavam);
+  const tam = renavam.length;
+  const digitos = renavam.substr(tam - 1, 1);
+  if (digitos.charCodeAt(0) - 48 === dv) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export function create_renavam(renavam) {
+  let dig1 = 0;
+  while (renavam.length < 11) {
+    renavam = '0' + renavam;
+  }
+
+  dig1 = (renavam.charCodeAt(0) - 48) * 3 + (renavam.charCodeAt(1) - 48) * 2 + (renavam.charCodeAt(2) - 48) * 9 + (renavam.charCodeAt(3) - 48) * 8 +
+    (renavam.charCodeAt(4) - 48) * 7 + (renavam.charCodeAt(5) - 48) * 6 + (renavam.charCodeAt(6) - 48) * 5 +
+    (renavam.charCodeAt(7) - 48) * 4 + (renavam.charCodeAt(8) - 48) * 3 + (renavam.charCodeAt(9) - 48) * 2;
+  dig1 = dig1 * 10;
+  let resto = (dig1 % 11);
+  if (resto === 10) {
+    return 0;
+  } else {
+    return resto;
+  }
 }

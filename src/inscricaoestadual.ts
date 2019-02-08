@@ -609,8 +609,8 @@ export const IEMASKS = {
     textMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]
   },
   ba: {
-    text: '123456-63',
-    textMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]
+    text: '1234567-63',
+    textMask: [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/]
   },
   ce: {
     text: '06.000001-5',
